@@ -37,37 +37,47 @@ public class FirstOccurrence {
 
  public static int strStr(String haystack, String needle) {
         
-        String lowerHayStack = haystack.toLowerCase();
-        String lowerNeedle = needle.toLowerCase();
+    // Convert both haystack and needle to lowercase to make the search case-insensitive
+    String lowerHayStack = haystack.toLowerCase();
+    String lowerNeedle = needle.toLowerCase();
 
-        int lowerHayStackSize = lowerHayStack.length();
-        int lowerNeedleSize = lowerNeedle.length();
+    // Get the lengths of both the haystack and the needle strings
+    int lowerHayStackSize = lowerHayStack.length();
+    int lowerNeedleSize = lowerNeedle.length();
 
-        if (lowerHayStack.contains(lowerNeedle)) {
+    // Check if the haystack contains the needle at all
+    if (lowerHayStack.contains(lowerNeedle)) {
 
-            if (lowerNeedleSize == 0) {
-                return 0;
-            }
-
-            for (int i = 0; i < lowerHayStackSize; i++) {
-
-                if (lowerHayStack.charAt(i) == lowerNeedle.charAt(0)) {
-                     StringBuilder test = new StringBuilder();
-                    for (int j = i; j < lowerNeedleSize + i; j++) {
-                         test.append(lowerHayStack.charAt(j));
-
-                    }
-
-                      if (test.toString().equals(lowerNeedle)) {
-                             return i; }
-
-                }
-
-            }
-
+        // Special case: If the needle is an empty string, return 0
+        if (lowerNeedleSize == 0) {
+            return 0;
         }
 
-        return -1;
+        // Loop through the haystack string
+        for (int i = 0; i < lowerHayStackSize; i++) {
+
+            // Check if the character at the current index matches the first character of the needle
+            if (lowerHayStack.charAt(i) == lowerNeedle.charAt(0)) {
+                
+                // Create a StringBuilder to build the substring dynamically
+                StringBuilder test = new StringBuilder();
+
+                // Loop to build the substring starting from the current index in the haystack
+                // This will build a substring of length equal to the needle
+                for (int j = i; j < lowerNeedleSize + i; j++) {
+                    test.append(lowerHayStack.charAt(j)); // Append characters to the StringBuilder
+                }
+
+                // After building the substring, check if it matches the needle
+                if (test.toString().equals(lowerNeedle)) {
+                    return i; // If they match, return the starting index
+                }
+            }
+        }
+    }
+
+    // If the needle is not found, return -1
+    return -1;
     }
 
 }
